@@ -16,6 +16,7 @@ function StatsPanel() {
   const internshipRoutes = useTechData((s) => s.internshipRoutes)
   const fullTimeHires = useTechData((s) => s.fullTimeHires)
   const sessionStats = useTechData((s) => s.sessionStats)
+  const liveData = useTechData((s) => s.liveData)
 
   const aiCompanyCount = startups.filter((n) => n.type === 'AICompany').length
   const startupHubCount = startups.filter((n) => n.type === 'StartupHub').length
@@ -68,6 +69,56 @@ function StatsPanel() {
       <SessionBar label="Internship Assistance" value={sessionStats.internshipAssistance} total={sessionStats.total} />
       <SessionBar label="Interview Prep" value={sessionStats.interviewPrep} total={sessionStats.total} />
       <SessionBar label="LinkedIn Optimization" value={sessionStats.linkedInOptimization} total={sessionStats.total} />
+
+      <div className="hud-divider" />
+
+      <LiveDataStatus liveData={liveData} />
+    </div>
+  )
+}
+
+/** Freshness indicator + BLS econ trend for the public-data overlay. */
+function LiveDataStatus({ liveData }) {
+  const { status, updatedAt, trackedCount, econPulse } = liveData
+
+  const dotColor =
+    status === 'ready' ? 'var(--hud-green)' : status === 'error' ? 'var(--hud-pink)' : 'var(--hud-amber)'
+  const statusLabel =
+    status === 'ready'
+      ? `${trackedCount} EMPLOYER${trackedCount === 1 ? '' : 'S'} TRACKED`
+      : status.toUpperCase()
+
+  return (
+    <div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+        <span
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: dotColor,
+            boxShadow: status === 'ready' ? `0 0 6px ${dotColor}` : 'none'
+          }}
+        />
+        <span className="hud-label">LIVE DATA — {statusLabel}</span>
+      </div>
+
+      {econPulse?.series?.length > 0 && (
+        <div style={{ marginBottom: 4 }}>
+          {econPulse.series.map((s) => (
+            <div key={s.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 2 }}>
+              <span style={{ opacity: 0.8 }}>{s.label}</span>
+              <span style={{ color: s.pctChangeYoY >= 0 ? 'var(--hud-green)' : 'var(--hud-pink)' }}>
+                {s.pctChangeYoY != null ? `${s.pctChangeYoY > 0 ? '+' : ''}${s.pctChangeYoY}% YoY` : '—'}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {updatedAt && (
+        <div style={{ fontSize: 9, opacity: 0.5 }}>Updated {new Date(updatedAt).toLocaleTimeString()}</div>
+      )}
     </div>
   )
 }

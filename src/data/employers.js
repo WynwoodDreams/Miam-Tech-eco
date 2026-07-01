@@ -92,6 +92,17 @@ export const employers = [
     openRoles: 2,
     hires: 0,
     color: '#ff5da2'
+  },
+  {
+    id: 'moonpay',
+    name: 'MoonPay',
+    type: 'Employer',
+    position: [5, 0, 3.5],
+    industry: 'Crypto & Fintech Payments',
+    // Seed value shown until /api/jobs (Lever) overlays the live count —
+    // see useTechData.loadLiveData and api/jobs.js.
+    openRoles: 5,
+    color: '#ff5da2'
   }
 ]
 

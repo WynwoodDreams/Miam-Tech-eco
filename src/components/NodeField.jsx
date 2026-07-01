@@ -141,6 +141,11 @@ function HoloLabel({ node, color, labelField, iconChar }) {
             {iconChar} {node.type?.toUpperCase()}
           </div>
           <div style={{ fontWeight: 600 }}>{node[labelField]}</div>
+          {node.isLive && (
+            <div style={{ color: 'var(--hud-green)', fontSize: 9, marginTop: 2 }}>
+              ● LIVE — {node.openRoles ?? 0} open role{node.openRoles === 1 ? '' : 's'}
+            </div>
+          )}
           {node.description && (
             <div style={{ opacity: 0.75, fontSize: 10, marginTop: 4, maxWidth: 220, whiteSpace: 'normal' }}>
               {node.description}
