@@ -1,0 +1,156 @@
+/* Shared "mission control" visual language for every overlay panel.
+   Kept in one file so the tactical aesthetic (dark glass, cyan glow,
+   monospace telemetry) stays consistent across HUD, ControlPanel,
+   Sidebar, StatsPanel, and Timeline without repeating styles. */
+
+:root {
+  --hud-bg: rgba(4, 14, 22, 0.82);
+  --hud-border: rgba(56, 224, 255, 0.35);
+  --hud-cyan: #38e0ff;
+  --hud-pink: #ff5da2;
+  --hud-amber: #ffd23f;
+  --hud-purple: #7c5cff;
+  --hud-green: #39ff88;
+  --hud-orange: #ffb347;
+  --hud-text: #e8fbff;
+  --hud-text-dim: rgba(232, 251, 255, 0.55);
+  --hud-font: 'Consolas', 'JetBrains Mono', 'SFMono-Regular', monospace;
+}
+
+.hud-panel {
+  background: var(--hud-bg);
+  border: 1px solid var(--hud-border);
+  border-radius: 10px;
+  color: var(--hud-text);
+  font-family: var(--hud-font);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 24px rgba(56, 224, 255, 0.08), inset 0 0 30px rgba(56, 224, 255, 0.03);
+  pointer-events: auto;
+}
+
+.hud-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--hud-cyan);
+  opacity: 0.85;
+}
+
+.hud-value {
+  font-size: 13px;
+  color: var(--hud-text);
+}
+
+.hud-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hud-border), transparent);
+  margin: 10px 0;
+}
+
+.hud-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.hud-slider-row input[type='range'] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(56, 224, 255, 0.15);
+  outline: none;
+}
+
+.hud-slider-row input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hud-cyan);
+  box-shadow: 0 0 8px var(--hud-cyan);
+  cursor: pointer;
+}
+
+.hud-slider-row input[type='range']::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: var(--hud-cyan);
+  box-shadow: 0 0 8px var(--hud-cyan);
+  cursor: pointer;
+}
+
+.hud-slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.hud-button {
+  background: rgba(56, 224, 255, 0.08);
+  border: 1px solid var(--hud-border);
+  color: var(--hud-text);
+  font-family: var(--hud-font);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hud-button:hover {
+  background: rgba(56, 224, 255, 0.18);
+  box-shadow: 0 0 12px rgba(56, 224, 255, 0.25);
+}
+
+.hud-button.active {
+  background: rgba(56, 224, 255, 0.28);
+  box-shadow: 0 0 14px rgba(56, 224, 255, 0.4);
+}
+
+.hud-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--hud-border);
+  color: var(--hud-text);
+  font-family: var(--hud-font);
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+}
+
+.hud-input::placeholder {
+  color: var(--hud-text-dim);
+}
+
+.hud-scroll {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.hud-node-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.hud-node-item:hover {
+  background: rgba(56, 224, 255, 0.1);
+}
+
+.hud-chip {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid currentColor;
+  opacity: 0.85;
+}
