@@ -1,10 +1,11 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import Scene from './components/Scene.jsx'
 import HUD from './components/HUD.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import ControlPanel from './components/ControlPanel.jsx'
 import StatsPanel from './components/StatsPanel.jsx'
 import Timeline from './components/Timeline.jsx'
+import { useTechData } from './hooks/useTechData.js'
 import './styles/hud.css'
 
 /**
@@ -15,6 +16,12 @@ import './styles/hud.css'
  * empty space between them still lets OrbitControls receive drag/scroll.
  */
 export default function App() {
+  const loadLiveData = useTechData((s) => s.loadLiveData)
+
+  useEffect(() => {
+    loadLiveData()
+  }, [loadLiveData])
+
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', background: '#030712' }}>
       <Suspense fallback={<LoadingScreen />}>
