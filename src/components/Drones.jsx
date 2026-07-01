@@ -5,7 +5,7 @@ import { useTechData } from '../hooks/useTechData.js'
 import { buildPatrolCurve, seededRandom } from '../utils/math.js'
 import { PALETTE } from '../utils/colors.js'
 
-const DRONE_COUNT = 8
+const DRONE_COUNT = 5
 
 /**
  * Drones renders a small fleet of autonomous patrol units flying smooth
@@ -61,7 +61,7 @@ function Drones() {
       group.position.y += Math.sin(t * 3 + i) * 0.08
 
       if (beam) {
-        beam.material.opacity = 0.25 + Math.abs(Math.sin(t * 2 + i)) * 0.15
+        beam.material.opacity = 0.12 + Math.abs(Math.sin(t * 2 + i)) * 0.08
       }
     })
   })
@@ -90,12 +90,12 @@ function Drones() {
             </mesh>
           ))}
           {/* Downward scanning beam */}
-          <mesh ref={(el) => (beamRefs.current[i] = el)} position={[0, -1.2, 0]} rotation={[Math.PI, 0, 0]}>
-            <coneGeometry args={[0.35, 2.4, 16, 1, true]} />
+          <mesh ref={(el) => (beamRefs.current[i] = el)} position={[0, -0.7, 0]} rotation={[Math.PI, 0, 0]}>
+            <coneGeometry args={[0.2, 1.4, 16, 1, true]} />
             <meshBasicMaterial
               color={PALETTE.cyan}
               transparent
-              opacity={0.25}
+              opacity={0.14}
               side={THREE.DoubleSide}
               depthWrite={false}
             />

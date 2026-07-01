@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar.jsx'
 import ControlPanel from './components/ControlPanel.jsx'
 import StatsPanel from './components/StatsPanel.jsx'
 import Timeline from './components/Timeline.jsx'
+import Legend from './components/Legend.jsx'
 import { useTechData } from './hooks/useTechData.js'
 import './styles/hud.css'
 
@@ -34,6 +35,7 @@ export default function App() {
         <ControlPanel />
         <StatsPanel />
         <Timeline />
+        <Legend />
       </div>
     </div>
   )

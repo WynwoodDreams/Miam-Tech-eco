@@ -56,7 +56,7 @@ export default function NodeField({ nodes, color, labelField = 'name', iconChar 
       DUMMY.updateMatrix()
       coreRef.current.setMatrixAt(i, DUMMY.matrix)
 
-      DUMMY.scale.setScalar((isDimmed ? 0.5 : 1) * scale * 1.9)
+      DUMMY.scale.setScalar((isDimmed ? 0.5 : 1) * scale * 1.4)
       DUMMY.updateMatrix()
       haloRef.current.setMatrixAt(i, DUMMY.matrix)
 
@@ -97,7 +97,7 @@ export default function NodeField({ nodes, color, labelField = 'name', iconChar 
         <sphereGeometry args={[0.22, 16, 16]} />
         <meshStandardMaterial
           emissive={color}
-          emissiveIntensity={2.2}
+          emissiveIntensity={1.4}
           color={color}
           toneMapped={false}
         />
@@ -105,7 +105,7 @@ export default function NodeField({ nodes, color, labelField = 'name', iconChar 
 
       <instancedMesh ref={haloRef} args={[null, null, nodes.length]}>
         <sphereGeometry args={[0.22, 12, 12]} />
-        <meshBasicMaterial color={color} transparent opacity={0.18} depthWrite={false} />
+        <meshBasicMaterial color={color} transparent opacity={0.12} depthWrite={false} />
       </instancedMesh>
 
       {activeNode && (

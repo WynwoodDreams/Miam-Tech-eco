@@ -5,7 +5,7 @@ import { useTechData } from '../hooks/useTechData.js'
 import { PALETTE } from '../utils/colors.js'
 import NodeField from './NodeField.jsx'
 
-const MAX_PARTICLES = 600
+const MAX_PARTICLES = 240
 
 /**
  * AIActivity renders the AI-native company markers plus a GPU-friendly
@@ -32,8 +32,8 @@ function AIActivity() {
     for (let i = 0; i < MAX_PARTICLES; i++) {
       const node = aiCompanies.length > 0 ? aiCompanies[i % aiCompanies.length] : { position: [0, 0, 0] }
       const angle = Math.random() * Math.PI * 2
-      const radius = 0.3 + Math.random() * 1.1
-      const height = Math.random() * 1.8
+      const radius = 0.2 + Math.random() * 0.6
+      const height = Math.random() * 1.1
 
       const bx = node.position[0] + Math.cos(angle) * radius
       const by = node.position[1] + height
@@ -87,9 +87,9 @@ function AIActivity() {
         </bufferGeometry>
         <pointsMaterial
           color={PALETTE.green}
-          size={0.045}
+          size={0.035}
           transparent
-          opacity={0.85}
+          opacity={0.55}
           sizeAttenuation
           depthWrite={false}
           blending={THREE.AdditiveBlending}
