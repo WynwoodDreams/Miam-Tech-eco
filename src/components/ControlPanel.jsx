@@ -9,7 +9,6 @@ const SLIDERS = [
   { key: 'employerDemand', label: 'Employer Demand', color: 'var(--hud-pink)', suffix: '%' },
   { key: 'aiActivity', label: 'AI Activity', color: 'var(--hud-green)', suffix: '%' },
   { key: 'eventDensity', label: 'Event Density', color: 'var(--hud-orange)', suffix: '%' },
-  { key: 'internshipPlacements', label: 'Internship Placements', color: 'var(--hud-cyan)', suffix: '%' },
   { key: 'traffic', label: 'Traffic', color: 'var(--hud-amber)', suffix: '%' }
 ]
 

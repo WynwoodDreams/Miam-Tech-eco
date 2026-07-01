@@ -10,7 +10,6 @@ import EmployerNodes from './EmployerNodes.jsx'
 import StartupNodes from './StartupNodes.jsx'
 import AIActivity from './AIActivity.jsx'
 import TalentFlow from './TalentFlow.jsx'
-import InternshipRoutes from './InternshipRoutes.jsx'
 import DataStreams from './DataStreams.jsx'
 import EventPulses from './EventPulses.jsx'
 import Drones from './Drones.jsx'
@@ -46,7 +45,6 @@ export default function Scene() {
         <StartupNodes />
         <AIActivity />
         <TalentFlow />
-        <InternshipRoutes />
         <DataStreams />
         <EventPulses />
         <Drones />

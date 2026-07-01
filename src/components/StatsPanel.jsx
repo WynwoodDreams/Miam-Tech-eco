@@ -3,9 +3,9 @@ import { useTechData } from '../hooks/useTechData.js'
 
 /**
  * StatsPanel surfaces the aggregate numbers behind the visualization:
- * node counts per category plus MDC WORKS coaching session totals. These
- * are the kinds of figures a stakeholder would want at a glance without
- * hunting through the 3D scene.
+ * node counts per category, live open-role totals from tracked employers,
+ * and the BLS Miami-metro employment trend. These are the kinds of figures
+ * a stakeholder would want at a glance without hunting through the 3D scene.
  */
 function StatsPanel() {
   const universities = useTechData((s) => s.universities)
@@ -13,13 +13,13 @@ function StatsPanel() {
   const startups = useTechData((s) => s.startups)
   const dataCenters = useTechData((s) => s.dataCenters)
   const events = useTechData((s) => s.events)
-  const internshipRoutes = useTechData((s) => s.internshipRoutes)
-  const fullTimeHires = useTechData((s) => s.fullTimeHires)
-  const sessionStats = useTechData((s) => s.sessionStats)
   const liveData = useTechData((s) => s.liveData)
 
   const aiCompanyCount = startups.filter((n) => n.type === 'AICompany').length
   const startupHubCount = startups.filter((n) => n.type === 'StartupHub').length
+  const liveOpenRoles = [...employers, ...startups]
+    .filter((n) => n.isLive)
+    .reduce((sum, n) => sum + (n.openRoles || 0), 0)
 
   const stats = [
     { label: 'Universities', value: universities.length, color: 'var(--hud-cyan)' },
@@ -28,8 +28,7 @@ function StatsPanel() {
     { label: 'AI Companies', value: aiCompanyCount, color: 'var(--hud-green)' },
     { label: 'Data Centers', value: dataCenters.length, color: 'var(--hud-amber)' },
     { label: 'Active Events', value: events.length, color: 'var(--hud-orange)' },
-    { label: 'Internship Routes', value: internshipRoutes.length, color: 'var(--hud-cyan)' },
-    { label: 'Full-Time Hires', value: fullTimeHires.length, color: 'var(--hud-green)' }
+    { label: 'Live Open Roles', value: liveOpenRoles, color: 'var(--hud-green)' }
   ]
 
   return (
@@ -58,17 +57,6 @@ function StatsPanel() {
           </div>
         ))}
       </div>
-
-      <div className="hud-divider" />
-
-      <div className="hud-label" style={{ marginBottom: 6 }}>
-        MDC WORKS COACHING SESSIONS ({sessionStats.total})
-      </div>
-      <SessionBar label="Resume Prep" value={sessionStats.resumePrep} total={sessionStats.total} />
-      <SessionBar label="Employment Assistance" value={sessionStats.employmentAssistance} total={sessionStats.total} />
-      <SessionBar label="Internship Assistance" value={sessionStats.internshipAssistance} total={sessionStats.total} />
-      <SessionBar label="Interview Prep" value={sessionStats.interviewPrep} total={sessionStats.total} />
-      <SessionBar label="LinkedIn Optimization" value={sessionStats.linkedInOptimization} total={sessionStats.total} />
 
       <div className="hud-divider" />
 
@@ -119,30 +107,6 @@ function LiveDataStatus({ liveData }) {
       {updatedAt && (
         <div style={{ fontSize: 9, opacity: 0.5 }}>Updated {new Date(updatedAt).toLocaleTimeString()}</div>
       )}
-    </div>
-  )
-}
-
-/** Thin horizontal proportion bar used for the session-type breakdown. */
-function SessionBar({ label, value, total }) {
-  const pct = Math.round((value / total) * 100)
-  return (
-    <div style={{ marginBottom: 6 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 2 }}>
-        <span style={{ opacity: 0.8 }}>{label}</span>
-        <span style={{ color: 'var(--hud-cyan)' }}>{value}</span>
-      </div>
-      <div style={{ height: 4, background: 'rgba(56,224,255,0.12)', borderRadius: 2 }}>
-        <div
-          style={{
-            height: '100%',
-            width: `${pct}%`,
-            background: 'var(--hud-cyan)',
-            borderRadius: 2,
-            boxShadow: '0 0 6px var(--hud-cyan)'
-          }}
-        />
-      </div>
     </div>
   )
 }
