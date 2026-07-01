@@ -6,8 +6,8 @@ const DUMMY = new THREE.Object3D()
 
 /**
  * Generic instanced-particle stream that travels along any THREE.Curve.
- * Used by InternshipRoutes and DataStreams to avoid duplicating the same
- * "N particles looping along a curve" logic in multiple files.
+ * Used by DataStreams (and any future flow layer) to avoid duplicating
+ * the same "N particles looping along a curve" logic in multiple files.
  */
 export default function FlowParticles({ curve, count = 3, color = '#38e0ff', speed = 0.2, size = 0.05 }) {
   const meshRef = useRef()

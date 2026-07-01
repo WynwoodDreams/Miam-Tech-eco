@@ -3,7 +3,6 @@ import { universities } from '../data/universities.js'
 import { employers, dataCenters } from '../data/employers.js'
 import { startups } from '../data/startups.js'
 import { events } from '../data/events.js'
-import { internshipRoutes, fullTimeHires, sessionStats } from '../data/internships.js'
 import { fetchLiveJobs, fetchEconPulse } from '../services/liveData.js'
 
 /**
@@ -23,16 +22,12 @@ export const useTechData = create((set, get) => ({
   dataCenters,
   startups,
   events,
-  internshipRoutes,
-  fullTimeHires,
-  sessionStats,
 
   // ---- Simulation control sliders (0-100 unless noted) ----
   talentFlow: 65,
   employerDemand: 55,
   aiActivity: 70,
   eventDensity: 40,
-  internshipPlacements: 60,
   traffic: 30,
   timeOfDay: 19, // 0-24 hour clock, defaults to dusk for a cinematic first impression
 
@@ -46,7 +41,6 @@ export const useTechData = create((set, get) => ({
     AICompany: true,
     Event: true,
     TalentFlow: true,
-    Internships: true,
     Drones: true
   },
   searchQuery: '',

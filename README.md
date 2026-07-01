@@ -3,8 +3,9 @@
 An interactive 3D "mission control" visualization of Miami's tech
 ecosystem, built with React Three Fiber. It maps universities, employers,
 startup hubs, AI companies, data centers, and tech events across the
-region, and layers on simulated talent flow, internship pipelines, and
-patrol drones.
+region, layers on ambient talent-flow animation and patrol drones, and
+overlays live public data: real job openings and the BLS Miami-metro
+employment trend.
 
 ## Stack
 

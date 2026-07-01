@@ -11,9 +11,8 @@ const PARTICLES_PER_CORRIDOR = 14
 /**
  * TalentFlow visualizes the broad, ambient movement of talent between
  * every university and every startup/employer hub as glowing particles
- * gliding along arced curves. This is distinct from InternshipRoutes,
- * which renders *specific, named* internship placements — TalentFlow is
- * the atmospheric "there is constant motion in this ecosystem" layer.
+ * gliding along arced curves — the atmospheric "there is constant motion
+ * in this ecosystem" layer.
  *
  * Particle density and speed both scale with the `talentFlow` slider.
  */
