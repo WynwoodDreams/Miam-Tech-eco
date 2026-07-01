@@ -41,7 +41,7 @@ export const useTechData = create((set, get) => ({
     AICompany: true,
     Event: true,
     TalentFlow: true,
-    Drones: true
+    Drones: false
   },
   searchQuery: '',
   selectedNodeId: null,

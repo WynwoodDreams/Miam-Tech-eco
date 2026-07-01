@@ -6,7 +6,7 @@ import { buildArcCurve } from '../utils/math.js'
 import { PALETTE } from '../utils/colors.js'
 
 const DUMMY = new THREE.Object3D()
-const PARTICLES_PER_CORRIDOR = 14
+const PARTICLES_PER_CORRIDOR = 8
 
 /**
  * TalentFlow visualizes the broad, ambient movement of talent between
@@ -25,21 +25,21 @@ function TalentFlow() {
 
   const meshRef = useRef()
 
-  // Build a fixed set of corridors: each university connects to its two
-  // geographically nearest startup/employer destinations. Computed once
-  // per dataset change, not per frame.
+  // Build a fixed set of corridors: each university connects to its single
+  // geographically nearest startup/employer destination. Computed once per
+  // dataset change, not per frame. Kept to one link per university (rather
+  // than the top few) so the ambient flow reads as a few clear threads
+  // instead of a dense tangle of arcs.
   const corridors = useMemo(() => {
     const destinations = [...startups, ...employers]
     const links = []
 
     for (const uni of universities) {
-      const sorted = [...destinations].sort((a, b) => {
-        const da = distanceSq(uni.position, a.position)
-        const db = distanceSq(uni.position, b.position)
-        return da - db
-      })
-      for (const dest of sorted.slice(0, 2)) {
-        links.push(buildArcCurve(uni.position, dest.position, 1.6 + Math.random() * 0.8))
+      const nearest = [...destinations].sort(
+        (a, b) => distanceSq(uni.position, a.position) - distanceSq(uni.position, b.position)
+      )[0]
+      if (nearest) {
+        links.push(buildArcCurve(uni.position, nearest.position, 1.6 + Math.random() * 0.8))
       }
     }
     return links
@@ -62,7 +62,7 @@ function TalentFlow() {
 
         // Fade particles in/out near the ends for a softer arrival/departure.
         const edgeFade = Math.sin(progress * Math.PI)
-        const scale = 0.06 + edgeFade * 0.05
+        const scale = 0.045 + edgeFade * 0.035
 
         DUMMY.position.copy(point)
         DUMMY.scale.setScalar(scale)
@@ -80,7 +80,7 @@ function TalentFlow() {
   return (
     <instancedMesh ref={meshRef} args={[null, null, totalParticles]}>
       <sphereGeometry args={[1, 6, 6]} />
-      <meshBasicMaterial color={PALETTE.cyan} transparent opacity={0.9} toneMapped={false} />
+      <meshBasicMaterial color={PALETTE.cyan} transparent opacity={0.65} toneMapped={false} />
     </instancedMesh>
   )
 }

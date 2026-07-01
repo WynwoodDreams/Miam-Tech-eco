@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { EffectComposer, Bloom, DepthOfField, Vignette, N8AO } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette, N8AO } from '@react-three/postprocessing'
 import { useTechData } from '../hooks/useTechData.js'
 import { PALETTE } from '../utils/colors.js'
 
@@ -31,7 +31,7 @@ export default function Scene() {
       shadows
       dpr={[1, 1.75]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
-      camera={{ fov: 50, near: 0.1, far: 200, position: [14, 12, 18] }}
+      camera={{ fov: 42, near: 0.1, far: 200, position: [16, 24, 22] }}
     >
       <color attach="background" args={[isNightMode ? PALETTE.backgroundNight : PALETTE.backgroundDay]} />
 
@@ -53,16 +53,15 @@ export default function Scene() {
       <CameraController />
 
       <EffectComposer multisampling={0}>
-        <N8AO aoRadius={2} intensity={1.1} distanceFalloff={1} />
+        <N8AO aoRadius={2} intensity={0.6} distanceFalloff={1} />
         <Bloom
           mipmapBlur
-          luminanceThreshold={0.25}
-          luminanceSmoothing={0.4}
-          intensity={isNightMode ? 1.4 : 0.7}
-          radius={0.8}
+          luminanceThreshold={0.45}
+          luminanceSmoothing={0.3}
+          intensity={isNightMode ? 0.75 : 0.45}
+          radius={0.55}
         />
-        <DepthOfField focusDistance={0.015} focalLength={0.04} bokehScale={2.5} height={480} />
-        <Vignette eskil={false} offset={0.15} darkness={isNightMode ? 0.9 : 0.5} />
+        <Vignette eskil={false} offset={0.15} darkness={isNightMode ? 0.7 : 0.4} />
       </EffectComposer>
     </Canvas>
   )
@@ -88,9 +87,9 @@ function SceneLighting({ isNightMode }) {
       {/* Rim lights reinforcing the neon "mission control" aesthetic at night */}
       {isNightMode && (
         <>
-          <pointLight position={[0, 6, 0]} intensity={12} color={PALETTE.cyan} distance={30} decay={2} />
-          <pointLight position={[10, 4, -10]} intensity={8} color={PALETTE.pink} distance={25} decay={2} />
-          <pointLight position={[-10, 4, 10]} intensity={8} color={PALETTE.purple} distance={25} decay={2} />
+          <pointLight position={[0, 6, 0]} intensity={5} color={PALETTE.cyan} distance={30} decay={2} />
+          <pointLight position={[10, 4, -10]} intensity={3.5} color={PALETTE.pink} distance={25} decay={2} />
+          <pointLight position={[-10, 4, 10]} intensity={3.5} color={PALETTE.purple} distance={25} decay={2} />
         </>
       )}
     </>

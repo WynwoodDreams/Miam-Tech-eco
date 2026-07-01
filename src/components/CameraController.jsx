@@ -18,7 +18,7 @@ export default function CameraController() {
   useCamera(controlsRef)
 
   useEffect(() => {
-    camera.position.set(14, 12, 18)
+    camera.position.set(16, 24, 22)
   }, [camera])
 
   useEffect(() => {
@@ -38,11 +38,11 @@ export default function CameraController() {
       makeDefault
       enableDamping
       dampingFactor={0.08}
-      minDistance={6}
-      maxDistance={60}
+      minDistance={10}
+      maxDistance={65}
       maxPolarAngle={Math.PI / 2.05}
       autoRotate={autoRotate}
-      autoRotateSpeed={0.6}
+      autoRotateSpeed={0.4}
       target={[0, 0, 0]}
     />
   )
