@@ -1,31 +1,36 @@
-/**
- * Animation helpers used inside useFrame callbacks. Kept allocation-free
- * (no `new` per call) so they are safe to run every frame at 60 FPS.
- */
+# Miami Tech Ecosystem — Digital Twin
 
-/** Gentle vertical bob, e.g. for floating labels or hologram nodes. */
-export function bobOffset(elapsed, speed = 1, amplitude = 0.15, phase = 0) {
-  return Math.sin(elapsed * speed + phase) * amplitude
-}
+An interactive 3D "mission control" visualization of Miami's tech
+ecosystem, built with React Three Fiber. It maps universities, employers,
+startup hubs, AI companies, data centers, and tech events across the
+region, and layers on simulated talent flow, internship pipelines, and
+patrol drones.
 
-/** Pulsing scale factor, e.g. for glowing node pulses. */
-export function pulseScale(elapsed, speed = 2, min = 0.85, max = 1.15, phase = 0) {
-  const t = (Math.sin(elapsed * speed + phase) + 1) / 2
-  return min + (max - min) * t
-}
+## Stack
 
-/** Continuous rotation angle (radians) given elapsed time and speed. */
-export function spin(elapsed, speed = 0.5) {
-  return elapsed * speed
-}
+- [Vite](https://vitejs.dev/) + React
+- [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) / [drei](https://github.com/pmndrs/drei) / [postprocessing](https://github.com/pmndrs/react-postprocessing)
+- [zustand](https://github.com/pmndrs/zustand) for shared simulation state
 
-/** Progress (0-1) of a value moving along a path at a given speed, looping. */
-export function loopProgress(elapsed, duration, offset = 0) {
-  const t = ((elapsed + offset) % duration) / duration
-  return t < 0 ? t + 1 : t
-}
+## Getting started
 
-/** Flicker intensity multiplier for data-stream / glitch effects. */
-export function flicker(elapsed, seedOffset = 0) {
-  return 0.7 + 0.3 * Math.abs(Math.sin(elapsed * 6 + seedOffset) * Math.cos(elapsed * 2.3 + seedOffset))
-}
+```bash
+npm install
+npm run dev
+```
+
+## Project structure
+
+```
+src/
+  components/   3D scene layers + HUD overlay panels
+  hooks/        useTechData (store), useCamera, useAnimation
+  utils/        math/curve helpers, color palette, animation easing
+  data/         static seed datasets (universities, employers, etc.)
+  styles/       shared HUD CSS
+```
+
+Every dataset in `src/data` is designed to be swapped for a live API feed
+(LinkedIn Jobs, Crunchbase, Eventbrite, the MDC internship database, etc.)
+without touching any rendering component — components read exclusively
+from the `useTechData` store.
