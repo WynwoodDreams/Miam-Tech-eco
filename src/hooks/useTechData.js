@@ -48,6 +48,10 @@ export const useTechData = create((set, get) => ({
   focusTarget: null, // [x,y,z] the CameraController should fly to
   isPlaying: true, // timeline playback toggle
 
+  // On mobile, panels render as a single bottom sheet instead of floating
+  // boxes; this tracks which one (if any) is open. null on desktop always.
+  activeMobilePanel: null, // 'directory' | 'controls' | 'stats' | 'timeline' | 'legend' | null
+
   // ---- Live public data (see loadLiveData below) ----
   liveData: {
     status: 'idle', // 'idle' | 'loading' | 'ready' | 'error'
@@ -68,6 +72,8 @@ export const useTechData = create((set, get) => ({
   selectNode: (nodeId, position) => set({ selectedNodeId: nodeId, focusTarget: position || null }),
   clearSelection: () => set({ selectedNodeId: null, focusTarget: null }),
   togglePlayback: () => set((state) => ({ isPlaying: !state.isPlaying })),
+  setActiveMobilePanel: (panel) =>
+    set((state) => ({ activeMobilePanel: state.activeMobilePanel === panel ? null : panel })),
 
   /** Returns every node across all collections as a single flat array. */
   getAllNodes: () => {

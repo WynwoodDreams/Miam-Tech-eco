@@ -1,5 +1,9 @@
 import { memo } from 'react'
 import { NODE_TYPE_COLORS } from '../utils/colors.js'
+import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
+import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 const ENTRIES = [
   { type: 'University', label: 'University' },
@@ -17,10 +21,15 @@ const ENTRIES = [
  * visible the whole time as a fixed reference.
  */
 function Legend() {
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
+
+  if (isMobile && activeMobilePanel !== 'legend') return null
+
   return (
     <div
       className="hud-panel"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         bottom: 20,
         right: 20,
@@ -28,11 +37,15 @@ function Legend() {
         padding: 12,
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
     >
-      <div className="hud-label" style={{ marginBottom: 8 }}>
-        MAP LEGEND
-      </div>
+      {isMobile ? (
+        <MobileSheetHeader title="MAP LEGEND" />
+      ) : (
+        <div className="hud-label" style={{ marginBottom: 8 }}>
+          MAP LEGEND
+        </div>
+      )}
       {ENTRIES.map(({ type, label }) => (
         <div key={type} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
           <span
