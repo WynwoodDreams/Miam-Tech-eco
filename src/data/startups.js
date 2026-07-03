@@ -41,39 +41,6 @@ export const startups = [
     color: '#7c5cff'
   },
   {
-    id: 'coral-ai',
-    name: 'Coral AI',
-    type: 'AICompany',
-    position: [0.5, 0, 1.5],
-    aiFocus: 'Workforce Intelligence Agents',
-    color: '#39ff88'
-  },
-  {
-    id: 'mia-aggregator',
-    name: 'M.I.A. — Miami Intelligence Aggregator',
-    shortName: 'M.I.A.',
-    type: 'AICompany',
-    position: [-2, 0, -1],
-    aiFocus: 'Civic Data & GIS Intelligence',
-    color: '#39ff88'
-  },
-  {
-    id: 'everymoto',
-    name: 'EveryMoto',
-    type: 'AICompany',
-    position: [2, 0, -1],
-    aiFocus: 'Motorcycle Social Platform + Recs',
-    color: '#39ff88'
-  },
-  {
-    id: 'aramea',
-    name: 'Aramea',
-    type: 'AICompany',
-    position: [3, 0, 2],
-    aiFocus: 'WebAR Jewelry Visualization',
-    color: '#39ff88'
-  },
-  {
     id: 'openai-miami',
     name: 'OpenAI Miami Partner Node',
     shortName: 'OpenAI Miami',

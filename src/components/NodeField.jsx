@@ -79,13 +79,10 @@ export default function NodeField({ nodes, type, labelField = 'name', pulseSpeed
       const y = node.position[1] + altitude + bob
 
       // Core: category silhouette, slowly rotating so the 3D shape reads
-      // from every camera angle. Rings lie flat and wobble instead.
+      // from every camera angle. Rings stand upright and spin like a coin
+      // rather than lying pressed flat into the ground.
       DUMMY.position.set(node.position[0], y, node.position[2])
-      if (shape === 'ring') {
-        DUMMY.rotation.set(FLAT + Math.sin(t * 0.9 + i) * 0.18, 0, 0)
-      } else {
-        DUMMY.rotation.set(0, t * 0.5 + i * 0.9, 0)
-      }
+      DUMMY.rotation.set(0, t * 0.5 + i * 0.9, 0)
       DUMMY.scale.setScalar(scale)
       DUMMY.updateMatrix()
       coreRef.current.setMatrixAt(i, DUMMY.matrix)
@@ -250,6 +247,8 @@ function useShapeGeometry(shape) {
       }
       case 'ring':
         return new THREE.TorusGeometry(0.2, 0.06, 16, 48)
+      case 'orb':
+        return new THREE.SphereGeometry(0.22, 28, 28)
       default:
         return new THREE.SphereGeometry(0.22, 24, 24)
     }

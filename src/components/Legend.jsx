@@ -36,7 +36,8 @@ function Legend() {
 
   const counts = {
     University: universities.length,
-    Employer: employers.length,
+    Employer: employers.filter((n) => n.type === 'Employer').length,
+    Startup: employers.filter((n) => n.type === 'Startup').length,
     StartupHub: startups.filter((n) => n.type === 'StartupHub').length,
     AICompany: startups.filter((n) => n.type === 'AICompany').length,
     DataCenter: dataCenters.length,
@@ -185,6 +186,12 @@ function ShapeGlyph({ shape, color, hollow }) {
       return (
         <svg {...common}>
           <circle cx="8" cy="8" r="5" fill="none" stroke={color} strokeWidth="2.4" opacity={hollow ? 0.6 : 1} />
+        </svg>
+      )
+    case 'orb':
+      return (
+        <svg {...common}>
+          <circle cx="8" cy="8" r="5.5" fill={fill} stroke={color} strokeWidth="1.2" />
         </svg>
       )
     default:

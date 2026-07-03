@@ -3,20 +3,31 @@ import { useTechData } from '../hooks/useTechData.js'
 import NodeField from './NodeField.jsx'
 
 /**
- * Renders employer campuses. Pulse speed is coupled to the `employerDemand`
- * slider so the whole layer visibly "breathes" faster as hiring demand
- * increases, giving the mission-control feel of a live labor-market feed.
+ * Renders company campuses, split into two visually distinct categories so
+ * established enterprises and venture-stage startups never read as the same
+ * dot: Employer (pink beveled towers) and Startup (coral orbs). Pulse speed
+ * is coupled to the `employerDemand` slider so both layers visibly
+ * "breathe" faster as hiring demand increases.
  */
 function EmployerNodes() {
-  const employers = useTechData((s) => s.employers)
-  const visible = useTechData((s) => s.layerFilters.Employer)
+  const established = useTechData((s) => s.employers.filter((n) => n.type === 'Employer'))
+  const startups = useTechData((s) => s.employers.filter((n) => n.type === 'Startup'))
+  const showEstablished = useTechData((s) => s.layerFilters.Employer)
+  const showStartups = useTechData((s) => s.layerFilters.Startup)
   const employerDemand = useTechData((s) => s.employerDemand)
-
-  if (!visible || employers.length === 0) return null
 
   const pulseSpeed = 1 + (employerDemand / 100) * 2.5
 
-  return <NodeField nodes={employers} type="Employer" pulseSpeed={pulseSpeed} />
+  return (
+    <group>
+      {showEstablished && established.length > 0 && (
+        <NodeField nodes={established} type="Employer" pulseSpeed={pulseSpeed} />
+      )}
+      {showStartups && startups.length > 0 && (
+        <NodeField nodes={startups} type="Startup" pulseSpeed={pulseSpeed * 1.15} />
+      )}
+    </group>
+  )
 }
 
 export default memo(EmployerNodes)

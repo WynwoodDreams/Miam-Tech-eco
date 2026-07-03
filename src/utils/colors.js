@@ -10,6 +10,7 @@ export const PALETTE = {
   green: '#39ff88',
   amber: '#ffd23f',
   orange: '#ffb347',
+  coral: '#ff5e4f',
   white: '#ffffff',
   gridLine: '#1a5f73',
   gridLineDay: '#5f97a8',
@@ -20,6 +21,7 @@ export const PALETTE = {
 export const NODE_TYPE_COLORS = {
   University: PALETTE.cyan,
   Employer: PALETTE.pink,
+  Startup: PALETTE.coral,
   DataCenter: PALETTE.amber,
   StartupHub: PALETTE.purple,
   AICompany: PALETTE.green,

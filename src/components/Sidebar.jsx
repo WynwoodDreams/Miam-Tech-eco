@@ -7,7 +7,8 @@ import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 const LAYER_TOGGLES = [
   { key: 'University', label: 'Universities' },
-  { key: 'Employer', label: 'Employers' },
+  { key: 'Employer', label: 'Established Cos' },
+  { key: 'Startup', label: 'Startups' },
   { key: 'DataCenter', label: 'Data Centers' },
   { key: 'StartupHub', label: 'Startup Hubs' },
   { key: 'AICompany', label: 'AI Companies' },

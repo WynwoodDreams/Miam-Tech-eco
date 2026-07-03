@@ -36,6 +36,7 @@ export const useTechData = create((set, get) => ({
   layerFilters: {
     University: true,
     Employer: true,
+    Startup: true,
     DataCenter: true,
     StartupHub: true,
     AICompany: true,
