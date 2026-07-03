@@ -143,6 +143,8 @@ function ShapeGlyph({ shape, color, hollow }) {
     width: 16,
     height: 16,
     viewBox: '0 0 16 16',
+    strokeLinejoin: 'round',
+    strokeLinecap: 'round',
     style: { flexShrink: 0, filter: hollow ? 'none' : `drop-shadow(0 0 3px ${color})` }
   }
 
@@ -150,13 +152,13 @@ function ShapeGlyph({ shape, color, hollow }) {
     case 'diamond':
       return (
         <svg {...common}>
-          <path d="M8 1.5 L14.5 8 L8 14.5 L1.5 8 Z" fill={fill} stroke={color} strokeWidth="1.2" />
+          <path d="M8 1 L13.5 8 L8 15 L2.5 8 Z" fill={fill} stroke={color} strokeWidth="1.2" />
         </svg>
       )
     case 'tower':
       return (
         <svg {...common}>
-          <rect x="4.5" y="2.5" width="7" height="11" fill={fill} stroke={color} strokeWidth="1.2" />
+          <rect x="4.5" y="2.5" width="7" height="11" rx="1.5" fill={fill} stroke={color} strokeWidth="1.2" />
         </svg>
       )
     case 'pyramid':
@@ -174,8 +176,9 @@ function ShapeGlyph({ shape, color, hollow }) {
     case 'stack':
       return (
         <svg {...common}>
-          <rect x="3" y="3" width="10" height="4" rx="1" fill={fill} stroke={color} strokeWidth="1.1" />
-          <rect x="3" y="9" width="10" height="4" rx="1" fill={fill} stroke={color} strokeWidth="1.1" />
+          <rect x="3" y="2" width="10" height="3.2" rx="1" fill={fill} stroke={color} strokeWidth="1.1" />
+          <rect x="3" y="6.4" width="10" height="3.2" rx="1" fill={fill} stroke={color} strokeWidth="1.1" />
+          <rect x="3" y="10.8" width="10" height="3.2" rx="1" fill={fill} stroke={color} strokeWidth="1.1" />
         </svg>
       )
     case 'ring':

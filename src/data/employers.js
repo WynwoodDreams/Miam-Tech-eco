@@ -106,6 +106,127 @@ export const employers = [
     // see useTechData.loadLiveData and api/jobs.js.
     openRoles: 5,
     color: '#ff5da2'
+  },
+  {
+    id: 'kaseya',
+    name: 'Kaseya',
+    type: 'Employer',
+    position: [3.4, 0, 4.2],
+    industry: 'IT Management & Cybersecurity Software',
+    openRoles: 14,
+    hires: 2,
+    color: '#ff5da2'
+  },
+  {
+    id: 'citadel-securities',
+    name: 'Citadel Securities',
+    type: 'Employer',
+    position: [5.4, 0, 5.6],
+    industry: 'Quantitative Trading Technology',
+    openRoles: 8,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'royal-caribbean',
+    name: 'Royal Caribbean Group',
+    shortName: 'Royal Caribbean',
+    type: 'Employer',
+    position: [7, 0, 4.2],
+    industry: 'Cruise Digital & Innovation Lab',
+    openRoles: 7,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'microsoft-latam',
+    name: 'Microsoft LatAm HQ',
+    type: 'Employer',
+    position: [-6.5, 0, 3.2],
+    industry: 'Cloud & Enterprise Software',
+    openRoles: 10,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'spotify-miami',
+    name: 'Spotify Miami',
+    type: 'Employer',
+    position: [0.6, 0, -0.9],
+    industry: 'Music Streaming — LatAm Hub',
+    openRoles: 4,
+    hires: 0,
+    color: '#ff5da2'
+  },
+  {
+    id: 'reef-technology',
+    name: 'REEF Technology',
+    type: 'Employer',
+    position: [1.9, 0, 3.4],
+    industry: 'Proximity Logistics Platform',
+    openRoles: 5,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'blockchain-com',
+    name: 'Blockchain.com',
+    type: 'Employer',
+    position: [4.4, 0, 6.3],
+    industry: 'Crypto Exchange & Wallets',
+    openRoles: 6,
+    hires: 0,
+    color: '#ff5da2'
+  },
+  {
+    id: 'quicknode',
+    name: 'QuickNode',
+    type: 'Employer',
+    position: [2.6, 0, 0.6],
+    industry: 'Blockchain RPC Infrastructure',
+    openRoles: 9,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'papa',
+    name: 'Papa',
+    type: 'Employer',
+    position: [1.4, 0, 7.6],
+    industry: 'Health Tech — Companion Care',
+    openRoles: 5,
+    hires: 0,
+    color: '#ff5da2'
+  },
+  {
+    id: 'assurant',
+    name: 'Assurant',
+    type: 'Employer',
+    position: [-2.6, 0, 7.2],
+    industry: 'Insurance & Connected-Device Tech',
+    openRoles: 6,
+    hires: 1,
+    color: '#ff5da2'
+  },
+  {
+    id: 'magic-leap',
+    name: 'Magic Leap',
+    type: 'Employer',
+    position: [-9, 0, -13],
+    industry: 'AR & Spatial Computing (Plantation)',
+    openRoles: 4,
+    hires: 0,
+    color: '#ff5da2'
+  },
+  {
+    id: 'chewy',
+    name: 'Chewy',
+    type: 'Employer',
+    position: [-11.5, 0, -14.5],
+    industry: 'Pet E-commerce & Logistics Tech (Plantation)',
+    openRoles: 12,
+    hires: 2,
+    color: '#ff5da2'
   }
 ]
 

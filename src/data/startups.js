@@ -90,5 +90,30 @@ export const startups = [
     position: [5, 0, -3],
     aiFocus: 'GPU-Accelerated Startups',
     color: '#39ff88'
+  },
+  {
+    id: 'lumu',
+    name: 'Lumu Technologies',
+    shortName: 'Lumu',
+    type: 'AICompany',
+    position: [-1.6, 0, 3.6],
+    aiFocus: 'AI Network Threat Detection',
+    color: '#39ff88'
+  },
+  {
+    id: 'openstore',
+    name: 'OpenStore',
+    type: 'AICompany',
+    position: [1.6, 0, 0.4],
+    aiFocus: 'AI-Run E-commerce Brand Portfolio',
+    color: '#39ff88'
+  },
+  {
+    id: 'carepredict',
+    name: 'CarePredict',
+    type: 'AICompany',
+    position: [-5, 0, -15.5],
+    aiFocus: 'AI Eldercare Wearables (Ft. Lauderdale)',
+    color: '#39ff88'
   }
 ]

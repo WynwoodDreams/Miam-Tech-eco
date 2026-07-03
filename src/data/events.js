@@ -63,5 +63,15 @@ export const events = [
     attendees: 2100,
     category: 'FinTech',
     color: '#ffb347'
+  },
+  {
+    id: 'emerge-americas',
+    name: 'eMerge Americas',
+    type: 'Event',
+    position: [13.5, 0, -1],
+    date: '2026-03-27',
+    attendees: 20000,
+    category: 'Conference',
+    color: '#ffb347'
   }
 ]
