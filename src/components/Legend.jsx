@@ -1,6 +1,9 @@
 import { memo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
 import { NODE_TYPES, NODE_TYPE_ORDER } from '../utils/nodeShapes.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
+import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 /**
  * Legend is the map key — and the fastest way to answer "what is that
@@ -12,6 +15,8 @@ import { NODE_TYPES, NODE_TYPE_ORDER } from '../utils/nodeShapes.js'
  *  - LABELS button → toggle the always-on name tags in the scene
  */
 function Legend() {
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
   const layerFilters = useTechData((s) => s.layerFilters)
   const toggleLayer = useTechData((s) => s.toggleLayer)
   const highlightType = useTechData((s) => s.highlightType)
@@ -26,6 +31,8 @@ function Legend() {
   const startups = useTechData((s) => s.startups)
   const dataCenters = useTechData((s) => s.dataCenters)
   const events = useTechData((s) => s.events)
+
+  if (isMobile && activeMobilePanel !== 'legend') return null
 
   const counts = {
     University: universities.length,
@@ -47,18 +54,19 @@ function Legend() {
         padding: 12,
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
       onMouseLeave={() => setHighlightType(null)}
     >
+      {isMobile && <MobileSheetHeader title="MAP KEY" />}
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: isMobile ? 'flex-end' : 'space-between',
           alignItems: 'center',
           marginBottom: 8
         }}
       >
-        <div className="hud-label">MAP KEY</div>
+        {!isMobile && <div className="hud-label">MAP KEY</div>}
         <button
           className={`hud-button ${showLabels ? 'active' : ''}`}
           onClick={toggleLabels}
@@ -119,7 +127,7 @@ function Legend() {
 
       <div className="hud-divider" style={{ margin: '8px 0 6px' }} />
       <div style={{ fontSize: 8.5, color: 'var(--hud-text-dim)', letterSpacing: 0.4 }}>
-        HOVER TO SPOTLIGHT · CLICK TO TOGGLE
+        {isMobile ? 'TAP A ROW TO TOGGLE ITS LAYER' : 'HOVER TO SPOTLIGHT · CLICK TO TOGGLE'}
       </div>
     </div>
   )
