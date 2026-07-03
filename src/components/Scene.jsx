@@ -35,7 +35,7 @@ export default function Scene() {
   return (
     <Canvas
       shadows={!isMobile}
-      dpr={isMobile ? [1, 1.5] : [1, 1.75]}
+      dpr={isMobile ? [1, 1.5] : [1, 2]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{
         fov: 42,
@@ -63,7 +63,10 @@ export default function Scene() {
 
       <CameraController />
 
-      <EffectComposer multisampling={0}>
+      {/* MSAA matters here: the composer replaces the canvas's native
+          antialiasing, so 0 samples leaves every marker edge jagged
+          ("8-bit"). Desktop gets 4x; mobile skips it for GPU headroom. */}
+      <EffectComposer multisampling={isMobile ? 0 : 4}>
         {!isMobile && <N8AO aoRadius={2} intensity={0.6} distanceFalloff={1} />}
         <Bloom
           mipmapBlur

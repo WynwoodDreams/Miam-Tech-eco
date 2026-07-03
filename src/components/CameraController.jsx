@@ -31,10 +31,13 @@ export default function CameraController() {
   useEffect(() => {
     const stopAutoRotate = () => setAutoRotate(false)
     const canvas = gl.domElement
+    // Any interaction (drag, scroll, touch) ends the establishing shot
     canvas.addEventListener('pointerdown', stopAutoRotate, { once: true })
-    const timeout = setTimeout(stopAutoRotate, 9000) // stop after 9s regardless
+    canvas.addEventListener('wheel', stopAutoRotate, { once: true, passive: true })
+    const timeout = setTimeout(stopAutoRotate, 5000) // stop after 5s regardless
     return () => {
       canvas.removeEventListener('pointerdown', stopAutoRotate)
+      canvas.removeEventListener('wheel', stopAutoRotate)
       clearTimeout(timeout)
     }
   }, [gl])
@@ -44,12 +47,16 @@ export default function CameraController() {
       ref={controlsRef}
       makeDefault
       enableDamping
-      dampingFactor={0.08}
+      dampingFactor={0.12}
+      rotateSpeed={0.55}
+      zoomSpeed={0.65}
+      panSpeed={0.6}
       minDistance={10}
       maxDistance={65}
-      maxPolarAngle={Math.PI / 2.05}
+      minPolarAngle={0.15}
+      maxPolarAngle={Math.PI / 2.15}
       autoRotate={autoRotate}
-      autoRotateSpeed={0.4}
+      autoRotateSpeed={0.25}
       target={[0, 0, 0]}
     />
   )

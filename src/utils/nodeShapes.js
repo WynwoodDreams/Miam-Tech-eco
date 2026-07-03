@@ -22,13 +22,22 @@ export const NODE_TYPES = {
     hint: 'Talent pipeline'
   },
   Employer: {
-    label: 'Employer',
-    plural: 'Employers',
+    label: 'Established Co.',
+    plural: 'Established Companies',
     color: PALETTE.pink,
     icon: '💼',
     shape: 'tower', // box tower — corporate campus
     altitude: 0.58,
-    hint: 'Hiring campus'
+    hint: 'Enterprise employer'
+  },
+  Startup: {
+    label: 'Startup',
+    plural: 'Startups',
+    color: PALETTE.coral,
+    icon: '🌱',
+    shape: 'orb', // smooth sphere — young company, still taking shape
+    altitude: 0.66,
+    hint: 'Venture-stage company'
   },
   StartupHub: {
     label: 'Startup Hub',
@@ -62,8 +71,8 @@ export const NODE_TYPES = {
     plural: 'Tech Events',
     color: PALETTE.orange,
     icon: '📅',
-    shape: 'ring', // flat torus — radar ping origin
-    altitude: 0.36,
+    shape: 'ring', // upright spinning ring — radar ping origin
+    altitude: 0.52,
     hint: 'Conference / meetup'
   }
 }
@@ -72,6 +81,7 @@ export const NODE_TYPES = {
 export const NODE_TYPE_ORDER = [
   'University',
   'Employer',
+  'Startup',
   'StartupHub',
   'AICompany',
   'DataCenter',

@@ -1,6 +1,7 @@
-import { Suspense, useMemo, useRef, useState } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html, Billboard, Text } from '@react-three/drei'
+import { RoundedBoxGeometry } from 'three-stdlib'
 import * as THREE from 'three'
 import { useTechData } from '../hooks/useTechData.js'
 import { pulseScale, bobOffset } from '../utils/animations.js'
@@ -43,6 +44,7 @@ export default function NodeField({ nodes, type, labelField = 'name', pulseSpeed
 
   const spec = getNodeType(type)
   const { color, shape, altitude } = spec
+  const geometry = useShapeGeometry(shape)
 
   const { baseColor, dimColor, dimHalo } = useMemo(() => {
     const base = new THREE.Color(color)
@@ -77,13 +79,10 @@ export default function NodeField({ nodes, type, labelField = 'name', pulseSpeed
       const y = node.position[1] + altitude + bob
 
       // Core: category silhouette, slowly rotating so the 3D shape reads
-      // from every camera angle. Rings lie flat and wobble instead.
+      // from every camera angle. Rings stand upright and spin like a coin
+      // rather than lying pressed flat into the ground.
       DUMMY.position.set(node.position[0], y, node.position[2])
-      if (shape === 'ring') {
-        DUMMY.rotation.set(FLAT + Math.sin(t * 0.9 + i) * 0.18, 0, 0)
-      } else {
-        DUMMY.rotation.set(0, t * 0.5 + i * 0.9, 0)
-      }
+      DUMMY.rotation.set(0, t * 0.5 + i * 0.9, 0)
       DUMMY.scale.setScalar(scale)
       DUMMY.updateMatrix()
       coreRef.current.setMatrixAt(i, DUMMY.matrix)
@@ -142,18 +141,22 @@ export default function NodeField({ nodes, type, labelField = 'name', pulseSpeed
           selectNode(node.id, node.position)
         }}
       >
-        <ShapeGeometry shape={shape} />
-        <meshStandardMaterial
-          emissive={color}
-          emissiveIntensity={1.4}
+        <primitive object={geometry} attach="geometry" />
+        <meshPhysicalMaterial
           color={color}
-          flatShading
+          emissive={color}
+          emissiveIntensity={1.05}
+          roughness={0.25}
+          metalness={0.15}
+          clearcoat={0.8}
+          clearcoatRoughness={0.3}
+          flatShading={FLAT_SHADED.has(shape)}
           toneMapped={false}
         />
       </instancedMesh>
 
       <instancedMesh ref={haloRef} args={[null, null, nodes.length]}>
-        <ShapeGeometry shape={shape} />
+        <primitive object={geometry} attach="geometry" />
         <meshBasicMaterial color={color} transparent opacity={0.12} depthWrite={false} />
       </instancedMesh>
 
@@ -190,24 +193,71 @@ export default function NodeField({ nodes, type, labelField = 'name', pulseSpeed
   )
 }
 
-/** Maps a nodeShapes.js `shape` key to its instanced geometry. */
-function ShapeGeometry({ shape }) {
-  switch (shape) {
-    case 'diamond':
-      return <octahedronGeometry args={[0.26, 0]} />
-    case 'tower':
-      return <boxGeometry args={[0.28, 0.5, 0.28]} />
-    case 'pyramid':
-      return <coneGeometry args={[0.24, 0.48, 4]} />
-    case 'core':
-      return <icosahedronGeometry args={[0.24, 0]} />
-    case 'stack':
-      return <cylinderGeometry args={[0.2, 0.2, 0.42, 6]} />
-    case 'ring':
-      return <torusGeometry args={[0.2, 0.065, 10, 28]} />
-    default:
-      return <sphereGeometry args={[0.22, 16, 16]} />
-  }
+/** Shapes that keep hard gem-like facets; the rest shade smooth. */
+const FLAT_SHADED = new Set(['diamond', 'pyramid', 'core'])
+
+/**
+ * Builds the refined per-category geometry (shared by the core and halo
+ * instanced meshes). These are deliberately higher-fidelity than raw
+ * primitives — beveled edges, elongated gem proportions, a grooved
+ * server-stack profile — so markers read as crafted objects rather than
+ * blocky low-poly placeholders.
+ */
+function useShapeGeometry(shape) {
+  const geometry = useMemo(() => {
+    switch (shape) {
+      case 'diamond': {
+        // Elongated octahedron — a cut-gem campus beacon
+        const g = new THREE.OctahedronGeometry(0.24, 0)
+        g.scale(1, 1.4, 1)
+        return g
+      }
+      case 'tower':
+        // Soft-beveled corporate tower
+        return new RoundedBoxGeometry(0.3, 0.56, 0.3, 4, 0.05)
+      case 'pyramid': {
+        // Square pyramid, rotated so a face (not an edge) greets the camera
+        const g = new THREE.ConeGeometry(0.26, 0.52, 4, 1)
+        g.rotateY(Math.PI / 4)
+        return g
+      }
+      case 'core':
+        // One subdivision keeps the faceted "compute core" look but
+        // rounds the silhouette
+        return new THREE.IcosahedronGeometry(0.25, 1)
+      case 'stack': {
+        // Lathe a grooved profile: three stacked server slabs
+        const pts = []
+        const R = 0.21
+        const r = 0.165
+        const h = 0.46
+        const slabs = 3
+        const slabH = h / slabs
+        pts.push(new THREE.Vector2(0.0001, -h / 2))
+        for (let s = 0; s < slabs; s++) {
+          const y0 = -h / 2 + s * slabH
+          const y1 = y0 + slabH
+          pts.push(new THREE.Vector2(R, y0 + 0.01))
+          pts.push(new THREE.Vector2(R, y1 - 0.03))
+          pts.push(new THREE.Vector2(r, y1 - 0.024))
+          pts.push(new THREE.Vector2(r, y1 - 0.004))
+        }
+        pts.push(new THREE.Vector2(0.0001, h / 2))
+        return new THREE.LatheGeometry(pts, 28)
+      }
+      case 'ring':
+        return new THREE.TorusGeometry(0.2, 0.06, 16, 48)
+      case 'orb':
+        return new THREE.SphereGeometry(0.22, 28, 28)
+      default:
+        return new THREE.SphereGeometry(0.22, 24, 24)
+    }
+  }, [shape])
+
+  // <primitive> objects aren't auto-disposed by R3F on unmount
+  useEffect(() => () => geometry.dispose(), [geometry])
+
+  return geometry
 }
 
 /**

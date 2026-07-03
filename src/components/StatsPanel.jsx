@@ -22,13 +22,16 @@ function StatsPanel() {
 
   const aiCompanyCount = startups.filter((n) => n.type === 'AICompany').length
   const startupHubCount = startups.filter((n) => n.type === 'StartupHub').length
+  const establishedCount = employers.filter((n) => n.type === 'Employer').length
+  const startupCompanyCount = employers.filter((n) => n.type === 'Startup').length
   const liveOpenRoles = [...employers, ...startups]
     .filter((n) => n.isLive)
     .reduce((sum, n) => sum + (n.openRoles || 0), 0)
 
   const stats = [
     { label: 'Universities', value: universities.length, color: 'var(--hud-cyan)' },
-    { label: 'Employers', value: employers.length, color: 'var(--hud-pink)' },
+    { label: 'Established Cos', value: establishedCount, color: 'var(--hud-pink)' },
+    { label: 'Startups', value: startupCompanyCount, color: 'var(--hud-coral)' },
     { label: 'Startup Hubs', value: startupHubCount, color: 'var(--hud-purple)' },
     { label: 'AI Companies', value: aiCompanyCount, color: 'var(--hud-green)' },
     { label: 'Data Centers', value: dataCenters.length, color: 'var(--hud-amber)' },

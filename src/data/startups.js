@@ -41,39 +41,6 @@ export const startups = [
     color: '#7c5cff'
   },
   {
-    id: 'coral-ai',
-    name: 'Coral AI',
-    type: 'AICompany',
-    position: [0.5, 0, 1.5],
-    aiFocus: 'Workforce Intelligence Agents',
-    color: '#39ff88'
-  },
-  {
-    id: 'mia-aggregator',
-    name: 'M.I.A. — Miami Intelligence Aggregator',
-    shortName: 'M.I.A.',
-    type: 'AICompany',
-    position: [-2, 0, -1],
-    aiFocus: 'Civic Data & GIS Intelligence',
-    color: '#39ff88'
-  },
-  {
-    id: 'everymoto',
-    name: 'EveryMoto',
-    type: 'AICompany',
-    position: [2, 0, -1],
-    aiFocus: 'Motorcycle Social Platform + Recs',
-    color: '#39ff88'
-  },
-  {
-    id: 'aramea',
-    name: 'Aramea',
-    type: 'AICompany',
-    position: [3, 0, 2],
-    aiFocus: 'WebAR Jewelry Visualization',
-    color: '#39ff88'
-  },
-  {
     id: 'openai-miami',
     name: 'OpenAI Miami Partner Node',
     shortName: 'OpenAI Miami',
@@ -89,6 +56,31 @@ export const startups = [
     type: 'AICompany',
     position: [5, 0, -3],
     aiFocus: 'GPU-Accelerated Startups',
+    color: '#39ff88'
+  },
+  {
+    id: 'lumu',
+    name: 'Lumu Technologies',
+    shortName: 'Lumu',
+    type: 'AICompany',
+    position: [-1.6, 0, 3.6],
+    aiFocus: 'AI Network Threat Detection',
+    color: '#39ff88'
+  },
+  {
+    id: 'openstore',
+    name: 'OpenStore',
+    type: 'AICompany',
+    position: [1.6, 0, 0.4],
+    aiFocus: 'AI-Run E-commerce Brand Portfolio',
+    color: '#39ff88'
+  },
+  {
+    id: 'carepredict',
+    name: 'CarePredict',
+    type: 'AICompany',
+    position: [-5, 0, -15.5],
+    aiFocus: 'AI Eldercare Wearables (Ft. Lauderdale)',
     color: '#39ff88'
   }
 ]
