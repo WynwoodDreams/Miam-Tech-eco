@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
-import { PALETTE } from '../utils/colors.js'
 import NodeField from './NodeField.jsx'
 
 /**
@@ -14,7 +13,7 @@ function UniversityNodes() {
 
   if (!visible || universities.length === 0) return null
 
-  return <NodeField nodes={universities} color={PALETTE.cyan} iconChar="🎓" pulseSpeed={1.4} />
+  return <NodeField nodes={universities} type="University" pulseSpeed={1.4} />
 }
 
 export default memo(UniversityNodes)

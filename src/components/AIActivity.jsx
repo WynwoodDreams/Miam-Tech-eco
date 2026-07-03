@@ -78,7 +78,7 @@ function AIActivity() {
   return (
     <group>
       {aiCompanies.length > 0 && (
-        <NodeField nodes={aiCompanies} color={PALETTE.green} iconChar="🤖" pulseSpeed={2.6} />
+        <NodeField nodes={aiCompanies} type="AICompany" pulseSpeed={2.6} />
       )}
 
       <points ref={pointsRef}>

@@ -50,7 +50,7 @@ function EventPulses() {
 
   return (
     <group>
-      <NodeField nodes={events} color={PALETTE.orange} iconChar="📅" pulseSpeed={2.2} />
+      <NodeField nodes={events} type="Event" pulseSpeed={2.2} />
       {ringData.map((_, i) => (
         <mesh key={i} ref={(el) => (ringRefs.current[i] = el)} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[0.5, 0.58, 32]} />

@@ -6,6 +6,7 @@ export const employers = [
   {
     id: 'miami-heat',
     name: 'Miami Heat (AmericanAirlines Arena Tech Ops)',
+    shortName: 'Miami Heat Tech Ops',
     type: 'Employer',
     position: [3, 0, 3],
     industry: 'Sports & Entertainment Tech',
@@ -26,6 +27,7 @@ export const employers = [
   {
     id: 'baptist-health',
     name: 'Baptist Health South Florida',
+    shortName: 'Baptist Health',
     type: 'Employer',
     position: [-2, 0, 10],
     industry: 'Healthcare IT',
@@ -76,6 +78,7 @@ export const employers = [
   {
     id: 'everglades-housing',
     name: 'Everglades Housing Group',
+    shortName: 'Everglades Housing',
     type: 'Employer',
     position: [-11, 0, -5],
     industry: 'Property & Civic Tech',

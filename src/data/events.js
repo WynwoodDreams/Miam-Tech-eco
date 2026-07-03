@@ -25,6 +25,7 @@ export const events = [
   {
     id: 'mdc-career-fair',
     name: 'MDC WORKS Tech Career Fair',
+    shortName: 'MDC Career Fair',
     type: 'Event',
     position: [2, 0, 6],
     date: '2026-03-20',
@@ -35,6 +36,7 @@ export const events = [
   {
     id: 'refinery-demo-day',
     name: 'Refinery Miami Demo Day',
+    shortName: 'Refinery Demo Day',
     type: 'Event',
     position: [1, 0, -2],
     date: '2026-06-10',
