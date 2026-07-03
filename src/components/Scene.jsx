@@ -6,6 +6,7 @@ import { useIsMobile } from '../hooks/useIsMobile.js'
 import { PALETTE } from '../utils/colors.js'
 
 import MiamiMap from './MiamiMap.jsx'
+import StreetGrid from './StreetGrid.jsx'
 import UniversityNodes from './UniversityNodes.jsx'
 import EmployerNodes from './EmployerNodes.jsx'
 import StartupNodes from './StartupNodes.jsx'
@@ -51,6 +52,7 @@ export default function Scene() {
       <Suspense fallback={null}>
         <Weather />
         <MiamiMap />
+        <StreetGrid />
         <UniversityNodes />
         <EmployerNodes />
         <StartupNodes />

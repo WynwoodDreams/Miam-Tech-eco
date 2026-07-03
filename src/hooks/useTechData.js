@@ -42,6 +42,7 @@ export const useTechData = create((set, get) => ({
     AICompany: true,
     Event: true,
     TalentFlow: true,
+    Streets: true,
     Drones: false
   },
   searchQuery: '',

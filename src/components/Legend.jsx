@@ -126,9 +126,70 @@ function Legend() {
         )
       })}
 
-      <div className="hud-divider" style={{ margin: '8px 0 6px' }} />
+      <div className="hud-divider" style={{ margin: '6px 0' }} />
+
+      {/* The animated layers get key rows too — the moving cyan dots are
+          the single most-asked "what is that?" on this map. */}
+      <FlowRow
+        enabled={layerFilters.TalentFlow}
+        spotlit={highlightType === 'TalentFlow'}
+        onToggle={() => {
+          toggleLayer('TalentFlow')
+          if (highlightType === 'TalentFlow') setHighlightType(null)
+        }}
+        onHover={() => setHighlightType(layerFilters.TalentFlow ? 'TalentFlow' : null)}
+      />
+
+      <div className="hud-divider" style={{ margin: '6px 0' }} />
       <div style={{ fontSize: 8.5, color: 'var(--hud-text-dim)', letterSpacing: 0.4 }}>
         {isMobile ? 'TAP A ROW TO TOGGLE ITS LAYER' : 'HOVER TO SPOTLIGHT · CLICK TO TOGGLE'}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Key row for the Talent Flow animation layer: the small cyan particles
+ * arcing across the map are graduates flowing from each university to its
+ * nearest employer/startup. Hovering dims all markers so the moving dots
+ * stand out; clicking toggles the layer.
+ */
+function FlowRow({ enabled, spotlit, onToggle, onHover }) {
+  return (
+    <div
+      role="button"
+      onClick={onToggle}
+      onMouseEnter={onHover}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9,
+        padding: '5px 6px',
+        margin: '0 -6px',
+        borderRadius: 6,
+        cursor: 'pointer',
+        opacity: enabled ? 1 : 0.35,
+        background: spotlit ? 'rgba(56, 224, 255, 0.1)' : 'transparent',
+        transition: 'background 120ms, opacity 120ms'
+      }}
+      title={enabled ? 'Click to hide the talent flow' : 'Click to show the talent flow'}
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" style={{ flexShrink: 0 }}>
+        <path
+          d="M2 12.5 Q8 2.5 14 12.5"
+          fill="none"
+          stroke="var(--hud-cyan)"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeDasharray="0.5 3"
+        />
+        <circle cx="8" cy="5" r="1.4" fill="var(--hud-cyan)" />
+      </svg>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 11, lineHeight: 1.2 }}>Talent Flow</div>
+        <div style={{ fontSize: 8.5, color: 'var(--hud-text-dim)', letterSpacing: 0.3 }}>
+          Grads → nearest employer
+        </div>
       </div>
     </div>
   )

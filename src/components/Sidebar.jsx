@@ -14,6 +14,7 @@ const LAYER_TOGGLES = [
   { key: 'AICompany', label: 'AI Companies' },
   { key: 'Event', label: 'Tech Events' },
   { key: 'TalentFlow', label: 'Talent Flow' },
+  { key: 'Streets', label: 'Street Names' },
   { key: 'Drones', label: 'Patrol Drones' }
 ]
 
