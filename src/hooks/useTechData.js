@@ -44,6 +44,8 @@ export const useTechData = create((set, get) => ({
     Drones: false
   },
   searchQuery: '',
+  highlightType: null, // node type spotlit from the Legend (others dim)
+  showLabels: true, // always-on 3D name tags above every marker
   selectedNodeId: null,
   focusTarget: null, // [x,y,z] the CameraController should fly to
   isPlaying: true, // timeline playback toggle
@@ -65,6 +67,8 @@ export const useTechData = create((set, get) => ({
       layerFilters: { ...state.layerFilters, [layer]: !state.layerFilters[layer] }
     })),
   setSearchQuery: (query) => set({ searchQuery: query }),
+  setHighlightType: (type) => set({ highlightType: type }),
+  toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
   selectNode: (nodeId, position) => set({ selectedNodeId: nodeId, focusTarget: position || null }),
   clearSelection: () => set({ selectedNodeId: null, focusTarget: null }),
   togglePlayback: () => set((state) => ({ isPlaying: !state.isPlaying })),

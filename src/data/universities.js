@@ -3,6 +3,9 @@
 // map plane sits at y = 0 and roughly mirrors Miami-Dade's real geography
 // (west -> east = x negative -> positive, south -> north = z positive -> negative).
 //
+// `shortName` (optional) is the compact label shown on the 3D map;
+// long official names stay in `name` for cards/search.
+//
 // This shape is intentionally API-ready: swap this static array for a
 // fetch() to a College Scorecard / Lightcast education feed
 // without touching any rendering component.
@@ -10,6 +13,7 @@ export const universities = [
   {
     id: 'mdc-wolfson',
     name: 'Miami Dade College — Wolfson Campus',
+    shortName: 'MDC Wolfson',
     type: 'University',
     position: [2, 0, 6],
     students: 18000,
@@ -20,6 +24,7 @@ export const universities = [
   {
     id: 'mdc-kendall',
     name: 'Miami Dade College — Kendall Campus',
+    shortName: 'MDC Kendall',
     type: 'University',
     position: [-6, 0, 12],
     students: 15500,
@@ -30,6 +35,7 @@ export const universities = [
   {
     id: 'mdc-north',
     name: 'Miami Dade College — North Campus',
+    shortName: 'MDC North',
     type: 'University',
     position: [1, 0, -9],
     students: 11200,
@@ -40,6 +46,7 @@ export const universities = [
   {
     id: 'mdc-padron',
     name: 'Miami Dade College — Padron Campus',
+    shortName: 'MDC Padron',
     type: 'University',
     position: [-9, 0, -3],
     students: 9800,
@@ -50,6 +57,7 @@ export const universities = [
   {
     id: 'fiu',
     name: 'Florida International University',
+    shortName: 'FIU',
     type: 'University',
     position: [-14, 0, 2],
     students: 58000,

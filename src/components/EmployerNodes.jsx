@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
-import { PALETTE } from '../utils/colors.js'
 import NodeField from './NodeField.jsx'
 
 /**
@@ -17,7 +16,7 @@ function EmployerNodes() {
 
   const pulseSpeed = 1 + (employerDemand / 100) * 2.5
 
-  return <NodeField nodes={employers} color={PALETTE.pink} iconChar="💼" pulseSpeed={pulseSpeed} />
+  return <NodeField nodes={employers} type="Employer" pulseSpeed={pulseSpeed} />
 }
 
 export default memo(EmployerNodes)

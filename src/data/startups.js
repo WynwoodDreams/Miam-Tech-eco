@@ -15,6 +15,7 @@ export const startups = [
   {
     id: 'brickell-fintech',
     name: 'Brickell FinTech District',
+    shortName: 'Brickell FinTech',
     type: 'StartupHub',
     position: [4, 0, 5],
     companies: 95,
@@ -50,6 +51,7 @@ export const startups = [
   {
     id: 'mia-aggregator',
     name: 'M.I.A. — Miami Intelligence Aggregator',
+    shortName: 'M.I.A.',
     type: 'AICompany',
     position: [-2, 0, -1],
     aiFocus: 'Civic Data & GIS Intelligence',
@@ -74,6 +76,7 @@ export const startups = [
   {
     id: 'openai-miami',
     name: 'OpenAI Miami Partner Node',
+    shortName: 'OpenAI Miami',
     type: 'AICompany',
     position: [-3, 0, 4],
     aiFocus: 'LLM Infrastructure Partner',
@@ -82,6 +85,7 @@ export const startups = [
   {
     id: 'nvidia-inception-mia',
     name: 'NVIDIA Inception — Miami Cohort',
+    shortName: 'NVIDIA Inception',
     type: 'AICompany',
     position: [5, 0, -3],
     aiFocus: 'GPU-Accelerated Startups',
