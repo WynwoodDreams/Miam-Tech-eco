@@ -1,6 +1,9 @@
 import { memo, useMemo, useState } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
 import { NODE_TYPE_COLORS } from '../utils/colors.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
+import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 const LAYER_TOGGLES = [
   { key: 'University', label: 'Universities' },
@@ -21,6 +24,8 @@ const LAYER_TOGGLES = [
  */
 function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
   const searchQuery = useTechData((s) => s.searchQuery)
   const setSearchQuery = useTechData((s) => s.setSearchQuery)
   const layerFilters = useTechData((s) => s.layerFilters)
@@ -37,7 +42,9 @@ function Sidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, allNodes.length])
 
-  if (collapsed) {
+  if (isMobile) {
+    if (activeMobilePanel !== 'directory') return null
+  } else if (collapsed) {
     return (
       <button
         className="hud-panel hud-button"
@@ -52,7 +59,7 @@ function Sidebar() {
   return (
     <div
       className="hud-panel hud-scroll"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         top: 90,
         left: 20,
@@ -61,14 +68,18 @@ function Sidebar() {
         padding: 16,
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-        <div className="hud-label">DIRECTORY & LAYERS</div>
-        <button className="hud-button" onClick={() => setCollapsed(true)}>
-          —
-        </button>
-      </div>
+      {isMobile ? (
+        <MobileSheetHeader title="DIRECTORY & LAYERS" />
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <div className="hud-label">DIRECTORY & LAYERS</div>
+          <button className="hud-button" onClick={() => setCollapsed(true)}>
+            —
+          </button>
+        </div>
+      )}
 
       <input
         className="hud-input"

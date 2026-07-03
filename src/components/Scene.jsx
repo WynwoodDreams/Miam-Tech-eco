@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { EffectComposer, Bloom, Vignette, N8AO } from '@react-three/postprocessing'
 import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 import { PALETTE } from '../utils/colors.js'
 
 import MiamiMap from './MiamiMap.jsx'
@@ -25,13 +26,23 @@ import CameraController from './CameraController.jsx'
  */
 export default function Scene() {
   const isNightMode = useTechData((s) => s.isNightMode)
+  // Phone GPUs are far weaker than desktop, and a narrow portrait viewport
+  // has a much tighter horizontal field of view — so mobile drops shadows
+  // and AO for headroom, and pulls the camera back further so the map
+  // isn't cropped.
+  const isMobile = useIsMobile()
 
   return (
     <Canvas
-      shadows
-      dpr={[1, 1.75]}
+      shadows={!isMobile}
+      dpr={isMobile ? [1, 1.5] : [1, 1.75]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
-      camera={{ fov: 42, near: 0.1, far: 200, position: [16, 24, 22] }}
+      camera={{
+        fov: 42,
+        near: 0.1,
+        far: 200,
+        position: isMobile ? [20, 36, 34] : [16, 24, 22]
+      }}
     >
       <color attach="background" args={[isNightMode ? PALETTE.backgroundNight : PALETTE.backgroundDay]} />
 
@@ -53,7 +64,7 @@ export default function Scene() {
       <CameraController />
 
       <EffectComposer multisampling={0}>
-        <N8AO aoRadius={2} intensity={0.6} distanceFalloff={1} />
+        {!isMobile && <N8AO aoRadius={2} intensity={0.6} distanceFalloff={1} />}
         <Bloom
           mipmapBlur
           luminanceThreshold={0.45}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useCamera } from '../hooks/useCamera.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 
 /**
  * CameraController wraps drei's OrbitControls and layers on two behaviors:
@@ -14,11 +15,17 @@ export default function CameraController() {
   const { camera, gl } = useThree()
   const controlsRef = useRef()
   const [autoRotate, setAutoRotate] = useState(true)
+  const isMobile = useIsMobile()
 
   useCamera(controlsRef)
 
   useEffect(() => {
-    camera.position.set(16, 24, 22)
+    if (isMobile) {
+      camera.position.set(20, 36, 34)
+    } else {
+      camera.position.set(16, 24, 22)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera])
 
   useEffect(() => {

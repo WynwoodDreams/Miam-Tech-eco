@@ -39,7 +39,7 @@ function Legend() {
   return (
     <div
       className="hud-panel"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         bottom: 20,
         right: 20,

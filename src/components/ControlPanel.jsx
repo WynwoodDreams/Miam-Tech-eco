@@ -1,5 +1,8 @@
 import { memo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
+import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 // Slider configuration: driving this from a config array (rather than
 // hand-writing 7 near-identical JSX blocks) makes it trivial to add a new
@@ -19,6 +22,8 @@ const SLIDERS = [
  * affect the 3D scene, only how to read/write their values.
  */
 function ControlPanel() {
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
   const timeOfDay = useTechData((s) => s.timeOfDay)
   const setTimeOfDay = useTechData((s) => s.setTimeOfDay)
   const isNightMode = useTechData((s) => s.isNightMode)
@@ -26,10 +31,12 @@ function ControlPanel() {
   const isPlaying = useTechData((s) => s.isPlaying)
   const togglePlayback = useTechData((s) => s.togglePlayback)
 
+  if (isMobile && activeMobilePanel !== 'controls') return null
+
   return (
     <div
       className="hud-panel hud-scroll"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         top: 90,
         right: 20,
@@ -38,11 +45,15 @@ function ControlPanel() {
         padding: 16,
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
     >
-      <div className="hud-label" style={{ marginBottom: 10 }}>
-        SIMULATION CONTROLS
-      </div>
+      {isMobile ? (
+        <MobileSheetHeader title="SIMULATION CONTROLS" />
+      ) : (
+        <div className="hud-label" style={{ marginBottom: 10 }}>
+          SIMULATION CONTROLS
+        </div>
+      )}
 
       {SLIDERS.map(({ key, label, color, suffix }) => (
         <SliderRow key={key} storeKey={key} label={label} color={color} suffix={suffix} />

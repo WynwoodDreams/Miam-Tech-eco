@@ -6,7 +6,9 @@ import ControlPanel from './components/ControlPanel.jsx'
 import StatsPanel from './components/StatsPanel.jsx'
 import Timeline from './components/Timeline.jsx'
 import Legend from './components/Legend.jsx'
+import MobileTabBar from './components/MobileTabBar.jsx'
 import { useTechData } from './hooks/useTechData.js'
+import { useIsMobile } from './hooks/useIsMobile.js'
 import './styles/hud.css'
 
 /**
@@ -17,6 +19,7 @@ import './styles/hud.css'
  * empty space between them still lets OrbitControls receive drag/scroll.
  */
 export default function App() {
+  const isMobile = useIsMobile()
   const loadLiveData = useTechData((s) => s.loadLiveData)
 
   useEffect(() => {
@@ -36,6 +39,7 @@ export default function App() {
         <StatsPanel />
         <Timeline />
         <Legend />
+        {isMobile && <MobileTabBar />}
       </div>
     </div>
   )
