@@ -1,5 +1,8 @@
 import { memo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
+import MobileSheetHeader from './MobileSheetHeader.jsx'
 
 /**
  * StatsPanel surfaces the aggregate numbers behind the visualization:
@@ -8,6 +11,8 @@ import { useTechData } from '../hooks/useTechData.js'
  * a stakeholder would want at a glance without hunting through the 3D scene.
  */
 function StatsPanel() {
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
   const universities = useTechData((s) => s.universities)
   const employers = useTechData((s) => s.employers)
   const startups = useTechData((s) => s.startups)
@@ -31,10 +36,12 @@ function StatsPanel() {
     { label: 'Live Open Roles', value: liveOpenRoles, color: 'var(--hud-green)' }
   ]
 
+  if (isMobile && activeMobilePanel !== 'stats') return null
+
   return (
     <div
       className="hud-panel"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         bottom: 20,
         left: 20,
@@ -42,11 +49,15 @@ function StatsPanel() {
         padding: 16,
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
     >
-      <div className="hud-label" style={{ marginBottom: 10 }}>
-        ECOSYSTEM STATISTICS
-      </div>
+      {isMobile ? (
+        <MobileSheetHeader title="ECOSYSTEM STATISTICS" />
+      ) : (
+        <div className="hud-label" style={{ marginBottom: 10 }}>
+          ECOSYSTEM STATISTICS
+        </div>
+      )}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
         {stats.map((s) => (
           <div key={s.label}>

@@ -1,5 +1,7 @@
 import { memo, useMemo } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
+import { panelPositionStyle } from '../utils/panelLayout.js'
 
 /**
  * Timeline renders every tech event as a point along a horizontal date
@@ -8,6 +10,9 @@ import { useTechData } from '../hooks/useTechData.js'
  * chronological alternative to browsing the map directly.
  */
 function Timeline() {
+  const isMobile = useIsMobile()
+  const activeMobilePanel = useTechData((s) => s.activeMobilePanel)
+  const setActiveMobilePanel = useTechData((s) => s.setActiveMobilePanel)
   const events = useTechData((s) => s.events)
   const selectedNodeId = useTechData((s) => s.selectedNodeId)
   const selectNode = useTechData((s) => s.selectNode)
@@ -26,10 +31,12 @@ function Timeline() {
 
   const span = Math.max(1, maxTime - minTime)
 
+  if (isMobile && activeMobilePanel !== 'timeline') return null
+
   return (
     <div
       className="hud-panel"
-      style={{
+      style={panelPositionStyle(isMobile, {
         position: 'absolute',
         bottom: 20,
         left: '50%',
@@ -38,13 +45,20 @@ function Timeline() {
         padding: '14px 20px',
         zIndex: 20,
         pointerEvents: 'auto'
-      }}
+      })}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
         <div className="hud-label">TECH EVENTS TIMELINE — 2026</div>
-        <button className="hud-button" onClick={togglePlayback}>
-          {isPlaying ? '⏸' : '▶'}
-        </button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="hud-button" onClick={togglePlayback}>
+            {isPlaying ? '⏸' : '▶'}
+          </button>
+          {isMobile && (
+            <button className="hud-button" onClick={() => setActiveMobilePanel(null)}>
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <div style={{ position: 'relative', height: 40 }}>

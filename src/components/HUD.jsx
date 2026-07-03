@@ -1,5 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react'
 import { useTechData } from '../hooks/useTechData.js'
+import { useIsMobile } from '../hooks/useIsMobile.js'
 
 /**
  * HUD renders the always-visible top overlay: system title, a live
@@ -9,6 +10,7 @@ import { useTechData } from '../hooks/useTechData.js'
  * currently selected.
  */
 function HUD() {
+  const isMobile = useIsMobile()
   const timeOfDay = useTechData((s) => s.timeOfDay)
   const isNightMode = useTechData((s) => s.isNightMode)
   const selectedNodeId = useTechData((s) => s.selectedNodeId)
@@ -30,25 +32,44 @@ function HUD() {
         left: 0,
         right: 0,
         display: 'flex',
+        flexWrap: isMobile ? 'wrap' : 'nowrap',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        padding: '16px 20px',
+        gap: isMobile ? 8 : 0,
+        padding: isMobile ? '10px 12px' : '16px 20px',
         pointerEvents: 'none',
         zIndex: 20
       }}
     >
-      <div className="hud-panel" style={{ padding: '10px 16px', pointerEvents: 'auto' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: 1 }}>
-          MIAMI TECH ECOSYSTEM <span style={{ color: 'var(--hud-cyan)' }}>// DIGITAL TWIN</span>
+      <div className="hud-panel" style={{ padding: isMobile ? '8px 12px' : '10px 16px', pointerEvents: 'auto' }}>
+        <div style={{ fontSize: isMobile ? 12 : 15, fontWeight: 700, letterSpacing: 1 }}>
+          {isMobile ? (
+            'MIAMI TECH ECOSYSTEM'
+          ) : (
+            <>
+              MIAMI TECH ECOSYSTEM <span style={{ color: 'var(--hud-cyan)' }}>// DIGITAL TWIN</span>
+            </>
+          )}
         </div>
-        <div className="hud-label" style={{ marginTop: 2 }}>
-          MISSION CONTROL v1.0 — LIVE SIMULATION
-        </div>
+        {!isMobile && (
+          <div className="hud-label" style={{ marginTop: 2 }}>
+            MISSION CONTROL v1.0 — LIVE SIMULATION
+          </div>
+        )}
       </div>
 
-      <div style={{ display: 'flex', gap: 12, pointerEvents: 'auto' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-end',
+          gap: 12,
+          pointerEvents: 'auto',
+          width: isMobile ? '100%' : 'auto'
+        }}
+      >
         {selectedNode && (
-          <div className="hud-panel" style={{ padding: '10px 14px', maxWidth: 260 }}>
+          <div className="hud-panel" style={{ padding: '10px 14px', maxWidth: isMobile ? '100%' : 260, flex: isMobile ? '1 1 100%' : 'initial' }}>
             <div className="hud-label">SELECTED NODE</div>
             <div style={{ fontWeight: 600, fontSize: 13, margin: '2px 0' }}>{selectedNode.name}</div>
             <div className="hud-value" style={{ opacity: 0.7, fontSize: 11 }}>{selectedNode.type}</div>
@@ -58,12 +79,14 @@ function HUD() {
           </div>
         )}
 
-        <div className="hud-panel" style={{ padding: '10px 16px', textAlign: 'right', minWidth: 130 }}>
-          <div className="hud-label">{isNightMode ? 'NIGHT MODE' : 'DAY MODE'}</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--hud-cyan)' }}>{clockLabel}</div>
-          <div className="hud-label" style={{ marginTop: 4 }}>
-            {fps} FPS
-          </div>
+        <div className="hud-panel" style={{ padding: isMobile ? '8px 12px' : '10px 16px', textAlign: 'right', minWidth: isMobile ? 80 : 130 }}>
+          <div className="hud-label">{isNightMode ? 'NIGHT' : 'DAY'}</div>
+          <div style={{ fontSize: isMobile ? 14 : 18, fontWeight: 700, color: 'var(--hud-cyan)' }}>{clockLabel}</div>
+          {!isMobile && (
+            <div className="hud-label" style={{ marginTop: 4 }}>
+              {fps} FPS
+            </div>
+          )}
         </div>
       </div>
     </div>

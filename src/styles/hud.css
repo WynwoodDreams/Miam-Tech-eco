@@ -3,6 +3,18 @@
    monospace telemetry) stays consistent across HUD, ControlPanel,
    Sidebar, StatsPanel, and Timeline without repeating styles. */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 :root {
   --hud-bg: rgba(4, 14, 22, 0.82);
   --hud-border: rgba(56, 224, 255, 0.35);
